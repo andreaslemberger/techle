@@ -12,7 +12,7 @@ export const TECH_WORDS = [
   "route", "model", "fiber", "solid",
   // 6-letter
   "docker", "kotlin", "python", "devops", "kanban", "gradle", "spring",
-  "svelte", "github", "gitlab", "elixir", "clojure", "puppet", "consul",
+  "svelte", "github", "gitlab", "elixir", "puppet", "consul",
   "heroku", "lambda", "cursor", "vercel", "neovim", "deploy", "commit",
   "squash", "rebase", "branch", "socket", "stream", "thread", "binary",
   "kernel", "module", "inject", "render", "erlang", "kibana", "prisma",
