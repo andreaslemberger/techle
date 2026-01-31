@@ -15,13 +15,12 @@ export const TECH_WORDS = [
   "svelte", "github", "gitlab", "elixir", "clojure", "puppet", "consul",
   "heroku", "lambda", "cursor", "vercel", "neovim", "deploy", "commit",
   "squash", "rebase", "branch", "socket", "stream", "thread", "binary",
-  "kernel", "module", "inject", "render",
+  "kernel", "module", "inject", "render", "erlang", "kibana", "prisma",
   // 7-letter
   "angular", "webpack", "graphql", "flutter", "jenkins", "ansible",
-  "haskell", "erlang", "mongodb", "mariadb", "openapi", "postman",
-  "grafana", "kibana", "traefik", "vagrant", "cypress", "prisma",
+  "haskell",  "mongodb", "mariadb", "openapi", "postman",
+  "grafana",  "traefik", "vagrant", "cypress", 
   "compile", "runtime", "pointer", "closure", "promise", "iterate",
-  "refactor",
 ].map((w) => w.toLowerCase());
 
 // Deduplicate
