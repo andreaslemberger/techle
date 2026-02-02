@@ -1,8 +1,18 @@
 {
   "name": "@andreaslemberger/techle",
   "version": "0.0.1",
-  "private": true,
   "type": "module",
+  "main": "dist/techle.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreaslemberger/techle.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
