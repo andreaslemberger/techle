@@ -1,11 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import Board from "../components/Board";
+import { LetterState } from "../words";
 
 describe("Board", () => {
   it("renders the correct number of rows", () => {
     const { container } = render(
-      <Board guesses={[]} currentGuess="" wordLength={5} maxGuesses={6} />
+      <Board guesses={[]} currentGuess="" wordLength={5} maxGuesses={6} />,
     );
     expect(container.querySelectorAll(".row")).toHaveLength(6);
   });
@@ -14,16 +15,11 @@ describe("Board", () => {
     const guesses = [
       {
         word: "react",
-        states: ["correct", "correct", "correct", "correct", "correct"] as const,
+        states: ["correct", "correct", "correct", "correct", "correct"] as LetterState[],
       },
     ];
     const { container } = render(
-      <Board
-        guesses={guesses as any}
-        currentGuess=""
-        wordLength={5}
-        maxGuesses={6}
-      />
+      <Board guesses={guesses} currentGuess="" wordLength={5} maxGuesses={6} />,
     );
     const rows = container.querySelectorAll(".row");
     // First row should have revealed tiles
@@ -36,16 +32,11 @@ describe("Board", () => {
     const guesses = [
       {
         word: "react",
-        states: ["correct", "correct", "correct", "correct", "correct"] as const,
+        states: ["correct", "correct", "correct", "correct", "correct"] as LetterState[],
       },
     ];
     const { container } = render(
-      <Board
-        guesses={guesses as any}
-        currentGuess="do"
-        wordLength={5}
-        maxGuesses={6}
-      />
+      <Board guesses={guesses} currentGuess="do" wordLength={5} maxGuesses={6} />,
     );
     const rows = container.querySelectorAll(".row");
     // Second row (index 1) should have the current guess
@@ -57,7 +48,7 @@ describe("Board", () => {
 
   it("renders empty rows for remaining guesses", () => {
     const { container } = render(
-      <Board guesses={[]} currentGuess="" wordLength={5} maxGuesses={6} />
+      <Board guesses={[]} currentGuess="" wordLength={5} maxGuesses={6} />,
     );
     const rows = container.querySelectorAll(".row");
     for (let i = 0; i < 6; i++) {

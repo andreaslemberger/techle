@@ -100,15 +100,27 @@
 }
 
 @keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes flip {
-  0% { transform: rotateX(0deg); }
-  50% { transform: rotateX(90deg); }
-  100% { transform: rotateX(0deg); }
+  0% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
 }
 
 /* Keyboard */
@@ -187,15 +199,27 @@
   font-weight: 700;
   text-align: center;
   white-space: nowrap;
-  animation: toast-in 0.3s ease, toast-out 0.3s ease 2.5s forwards;
+  animation:
+    toast-in 0.3s ease,
+    toast-out 0.3s ease 2.5s forwards;
 }
 
 @keyframes toast-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes toast-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

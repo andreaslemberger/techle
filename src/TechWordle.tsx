@@ -2,12 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Toast from "./components/Toast";
-import {
-  pickRandomWord,
-  isValidGuess,
-  evaluateGuess,
-  LetterState,
-} from "./words";
+import { pickRandomWord, isValidGuess, evaluateGuess, LetterState } from "./words";
 import styles from "./styles.css?inline";
 
 interface Guess {
@@ -23,9 +18,7 @@ export default function TechWordle() {
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(
-    () => new Map()
-  );
+  const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(() => new Map());
 
   const wordLength = solution.length;
 
@@ -76,10 +69,7 @@ export default function TechWordle() {
       showToast("Congratulations!");
     } else if (guesses.length + 1 >= MAX_GUESSES) {
       setGameOver(true);
-      showToast(
-        `Better luck next time! The word was ${solution.toUpperCase()}`,
-        5000
-      );
+      showToast(`Better luck next time! The word was ${solution.toUpperCase()}`, 5000);
     }
   }, [currentGuess, wordLength, solution, guesses.length, showToast]);
 
@@ -101,7 +91,7 @@ export default function TechWordle() {
         setCurrentGuess((prev) => prev + key);
       }
     },
-    [gameOver, currentGuess.length, wordLength, submitGuess]
+    [gameOver, currentGuess.length, wordLength, submitGuess],
   );
 
   useEffect(() => {

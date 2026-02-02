@@ -6,9 +6,7 @@ import { LetterState } from "../words";
 describe("Keyboard", () => {
   it("renders all letter keys", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     for (const letter of "qwertyuiopasdfghjklzxcvbnm") {
       expect(within(container).getByText(letter)).toBeInTheDocument();
@@ -17,9 +15,7 @@ describe("Keyboard", () => {
 
   it("renders Enter and Backspace keys", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     expect(within(container).getByText("Enter")).toBeInTheDocument();
     expect(within(container).getByText("⌫")).toBeInTheDocument();
@@ -27,9 +23,7 @@ describe("Keyboard", () => {
 
   it("calls onKey when a letter is clicked", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     fireEvent.click(within(container).getByText("a"));
     expect(onKey).toHaveBeenCalledWith("a");
@@ -37,9 +31,7 @@ describe("Keyboard", () => {
 
   it("calls onKey with Enter when Enter is clicked", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     fireEvent.click(within(container).getByText("Enter"));
     expect(onKey).toHaveBeenCalledWith("Enter");
@@ -47,9 +39,7 @@ describe("Keyboard", () => {
 
   it("calls onKey with Backspace when backspace is clicked", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     fireEvent.click(within(container).getByText("⌫"));
     expect(onKey).toHaveBeenCalledWith("Backspace");
@@ -62,9 +52,7 @@ describe("Keyboard", () => {
       ["e", "present"],
       ["x", "absent"],
     ]);
-    const { container } = render(
-      <Keyboard letterStates={states} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={states} onKey={onKey} />);
 
     expect(within(container).getByText("r")).toHaveClass("correct");
     expect(within(container).getByText("e")).toHaveClass("present");
@@ -73,9 +61,7 @@ describe("Keyboard", () => {
 
   it("applies wide class to Enter and Backspace", () => {
     const onKey = vi.fn();
-    const { container } = render(
-      <Keyboard letterStates={new Map()} onKey={onKey} />
-    );
+    const { container } = render(<Keyboard letterStates={new Map()} onKey={onKey} />);
 
     expect(within(container).getByText("Enter")).toHaveClass("wide");
     expect(within(container).getByText("⌫")).toHaveClass("wide");

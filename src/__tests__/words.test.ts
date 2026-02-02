@@ -1,11 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  TECH_WORDS,
-  TECH_WORD_LIST,
-  pickRandomWord,
-  isValidGuess,
-  evaluateGuess,
-} from "../words";
+import { TECH_WORDS, TECH_WORD_LIST, pickRandomWord, isValidGuess, evaluateGuess } from "../words";
 
 describe("TECH_WORDS", () => {
   it("contains only lowercase words", () => {

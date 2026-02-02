@@ -18,7 +18,7 @@ export default function Row({ guess, wordLength, states, isRevealed }: RowProps)
         state={states[i] || "empty"}
         reveal={isRevealed && states[i] !== "empty"}
         delay={i * 300}
-      />
+      />,
     );
   }
 

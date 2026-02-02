@@ -13,12 +13,7 @@ interface BoardProps {
   maxGuesses: number;
 }
 
-export default function Board({
-  guesses,
-  currentGuess,
-  wordLength,
-  maxGuesses,
-}: BoardProps) {
+export default function Board({ guesses, currentGuess, wordLength, maxGuesses }: BoardProps) {
   const rows = [];
 
   for (let i = 0; i < maxGuesses; i++) {
@@ -30,28 +25,14 @@ export default function Board({
           wordLength={wordLength}
           states={guesses[i].states}
           isRevealed={true}
-        />
+        />,
       );
     } else if (i === guesses.length) {
       rows.push(
-        <Row
-          key={i}
-          guess={currentGuess}
-          wordLength={wordLength}
-          states={[]}
-          isRevealed={false}
-        />
+        <Row key={i} guess={currentGuess} wordLength={wordLength} states={[]} isRevealed={false} />,
       );
     } else {
-      rows.push(
-        <Row
-          key={i}
-          guess=""
-          wordLength={wordLength}
-          states={[]}
-          isRevealed={false}
-        />
-      );
+      rows.push(<Row key={i} guess="" wordLength={wordLength} states={[]} isRevealed={false} />);
     }
   }
 
