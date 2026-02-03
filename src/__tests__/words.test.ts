@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { TECH_WORDS, TECH_WORD_LIST, pickRandomWord, isValidGuess, evaluateGuess } from "../words";
+import {
+  TECH_WORDS,
+  TECH_WORD_LIST,
+  TECH_WORD_DESCRIPTIONS,
+  pickRandomWord,
+  isValidGuess,
+  evaluateGuess,
+  getWordDescription,
+} from "../words";
 
 describe("TECH_WORDS", () => {
   it("contains only lowercase words", () => {
@@ -20,6 +28,29 @@ describe("TECH_WORD_LIST", () => {
   it("has no duplicates", () => {
     const unique = new Set(TECH_WORD_LIST);
     expect(unique.size).toBe(TECH_WORD_LIST.length);
+  });
+});
+
+describe("TECH_WORD_DESCRIPTIONS", () => {
+  it("has a description for every word in the tech word list", () => {
+    for (const word of TECH_WORD_LIST) {
+      expect(TECH_WORD_DESCRIPTIONS[word]).toBeDefined();
+      expect(TECH_WORD_DESCRIPTIONS[word].length).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("getWordDescription", () => {
+  it("returns the description for a known word", () => {
+    expect(getWordDescription("rust")).toContain("memory-safe");
+  });
+
+  it("is case-insensitive", () => {
+    expect(getWordDescription("RUST")).toBe(getWordDescription("rust"));
+  });
+
+  it("returns empty string for unknown words", () => {
+    expect(getWordDescription("zzzzz")).toBe("");
   });
 });
 

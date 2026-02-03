@@ -2,7 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Toast from "./components/Toast";
-import { pickRandomWord, isValidGuess, evaluateGuess, LetterState } from "./words";
+import {
+  pickRandomWord,
+  isValidGuess,
+  evaluateGuess,
+  getWordDescription,
+  LetterState,
+} from "./words";
 import styles from "./styles.css?inline";
 
 interface Guess {
@@ -64,12 +70,18 @@ export default function TechWordle() {
       return next;
     });
 
+    const description = getWordDescription(solution);
+    const descriptionSuffix = description ? ` — ${description}` : "";
+
     if (currentGuess === solution) {
       setGameOver(true);
-      showToast("Congratulations!");
+      showToast(`Congratulations!${descriptionSuffix}`, 10000);
     } else if (guesses.length + 1 >= MAX_GUESSES) {
       setGameOver(true);
-      showToast(`Better luck next time! The word was ${solution.toUpperCase()}`, 5000);
+      showToast(
+        `Better luck next time! The word was ${solution.toUpperCase()}.${descriptionSuffix}`,
+        10000,
+      );
     }
   }, [currentGuess, wordLength, solution, guesses.length, showToast]);
 
