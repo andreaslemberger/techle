@@ -18,15 +18,44 @@ interface Guess {
 
 const MAX_GUESSES = 6;
 
-export default function TechWordle() {
-  const [solution, setSolution] = useState(() => pickRandomWord());
+interface TechWordleProps {
+  apiUrl?: string;
+}
+
+export default function TechWordle({ apiUrl }: TechWordleProps) {
+  const [solution, setSolution] = useState<string | null>(null);
+  const [backendDescription, setBackendDescription] = useState<string | null>(null);
   const [guesses, setGuesses] = useState<Guess[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(() => new Map());
 
-  const wordLength = solution.length;
+  const wordLength = solution?.length ?? 5;
+
+  const fetchDailyWord = useCallback(async () => {
+    if (!apiUrl) {
+      setSolution(pickRandomWord());
+      setBackendDescription(null);
+      return;
+    }
+    try {
+      const res = await fetch(`${apiUrl}/daily-word`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setSolution(data.word.toLowerCase());
+      setBackendDescription(data.description ?? null);
+    } catch {
+      setSolution(pickRandomWord());
+      setBackendDescription(null);
+      setToast("Failed to fetch daily word, using random word instead.");
+      setTimeout(() => setToast(null), 3000);
+    }
+  }, [apiUrl]);
+
+  useEffect(() => {
+    fetchDailyWord();
+  }, [fetchDailyWord]);
 
   const showToast = useCallback((msg: string, duration = 3000) => {
     setToast(msg);
@@ -34,6 +63,8 @@ export default function TechWordle() {
   }, []);
 
   const submitGuess = useCallback(() => {
+    if (!solution) return;
+
     if (currentGuess.length !== wordLength) {
       showToast("Not enough letters");
       return;
@@ -70,7 +101,7 @@ export default function TechWordle() {
       return next;
     });
 
-    const description = getWordDescription(solution);
+    const description = backendDescription ?? getWordDescription(solution);
     const descriptionSuffix = description ? ` — ${description}` : "";
 
     if (currentGuess === solution) {
@@ -83,7 +114,7 @@ export default function TechWordle() {
         10000,
       );
     }
-  }, [currentGuess, wordLength, solution, guesses.length, showToast]);
+  }, [currentGuess, wordLength, solution, guesses.length, showToast, backendDescription]);
 
   const handleKey = useCallback(
     (key: string) => {
@@ -124,13 +155,27 @@ export default function TechWordle() {
   }, [handleKey]);
 
   const resetGame = useCallback(() => {
-    setSolution(pickRandomWord());
+    fetchDailyWord();
     setGuesses([]);
     setCurrentGuess("");
     setGameOver(false);
     setToast(null);
     setLetterStates(new Map());
-  }, []);
+  }, [fetchDailyWord]);
+
+  if (!solution) {
+    return (
+      <>
+        <style>{styles}</style>
+        <div className="game-container">
+          <div className="game-header">
+            <h1>Techle</h1>
+          </div>
+          <p style={{ color: "var(--techle-text-color)", textAlign: "center" }}>Loading…</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

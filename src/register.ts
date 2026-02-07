@@ -3,6 +3,7 @@ import TechWordle from "./TechWordle";
 
 const WebTechWordle = r2wc(TechWordle, {
   shadow: "open",
+  props: { apiUrl: "string" },
 });
 
 customElements.define("tech-wordle", WebTechWordle);

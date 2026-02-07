@@ -4,7 +4,7 @@ A Wordle-like quiz game with a tech twist — integrable into any webapp as a we
 
 ## How to Play
 
-1. A random tech/software engineering word (4–7 letters) is chosen each round.
+1. A tech/software engineering word (4–7 letters) is chosen each round. When connected to a backend via the `api-url` attribute, the same daily word is shared by all players.
 2. You have **6 attempts** to guess the word.
 3. Type your guess using the on-screen keyboard or your physical keyboard, then press **Enter**.
 4. After each guess, tiles change color to show how close you are:
@@ -37,6 +37,22 @@ Include the built script and use the `<tech-wordle>` custom element:
 ```
 
 The component uses Shadow DOM, so its styles are encapsulated and won't conflict with your page.
+
+### Daily Word Mode
+
+Connect to a backend to serve the same daily word to all players:
+
+```html
+<tech-wordle api-url="https://your-api.example.com"></tech-wordle>
+```
+
+The backend `GET /daily-word` endpoint should return:
+
+```json
+{ "word": "react", "description": "A JavaScript library...", "date": "2026-02-07" }
+```
+
+Without the `api-url` attribute, the component falls back to random word selection from its built-in word list.
 
 ### Development
 
