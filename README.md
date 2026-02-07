@@ -38,21 +38,36 @@ Include the built script and use the `<tech-wordle>` custom element:
 
 The component uses Shadow DOM, so its styles are encapsulated and won't conflict with your page.
 
-### Daily Word Mode
+### Game Modes
 
-Connect to a backend to serve the same daily word to all players:
+The `api-url` attribute determines how Techle picks its word:
+
+| `api-url` | Mode | Behavior |
+|---|---|---|
+| **Provided** | Daily word | Fetches the word from `GET {api-url}/daily-word`. All players sharing the same backend see the same word. The word persists until the backend rotates it. |
+| **Omitted** | Random word | Picks a random word from the built-in word list on every mount / "Play Again" press. Each player (and each page load) gets a different word. |
+
+#### Daily word mode
 
 ```html
 <tech-wordle api-url="https://your-api.example.com"></tech-wordle>
 ```
 
-The backend `GET /daily-word` endpoint should return:
+The `GET /daily-word` endpoint should return:
 
 ```json
 { "word": "react", "description": "A JavaScript library...", "date": "2026-02-07" }
 ```
 
-Without the `api-url` attribute, the component falls back to random word selection from its built-in word list.
+If the request fails, the component falls back to random word mode and shows a toast notification.
+
+#### Random word mode
+
+```html
+<tech-wordle></tech-wordle>
+```
+
+No backend required. A word is randomly selected from the built-in list each time the component mounts or the player clicks "Play Again".
 
 ### Development
 
