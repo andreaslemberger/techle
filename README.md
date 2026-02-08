@@ -12,8 +12,9 @@ A Wordle-like quiz game with a tech twist — integrable into any webapp as a we
    - **Yellow** — correct letter but in the wrong position.
    - **Gray** — letter is not in the word.
 5. The keyboard also updates with color hints to help track your guesses.
-6. Win by guessing the word within 6 tries, or the answer is revealed.
-7. Click **Play Again** to start a new round with a different word.
+6. If the `hint-enabled` attribute is set, a **Hint** button is available during the game. Clicking it displays the word's description as a clue.
+7. Win by guessing the word within 6 tries, or the answer is revealed.
+8. In random word mode, click **Play Again** to start a new round with a different word.
 
 ## Integration
 
@@ -38,6 +39,13 @@ Include the built script and use the `<tech-wordle>` custom element:
 
 The component uses Shadow DOM, so its styles are encapsulated and won't conflict with your page.
 
+### Attributes
+
+| Attribute | Type | Description |
+|---|---|---|
+| `api-url` | `string` | Backend URL for daily word mode. Omit for random word mode. |
+| `hint-enabled` | `boolean` | When present, shows a **Hint** button that displays the word's description. |
+
 ### Game Modes
 
 The `api-url` attribute determines how Techle picks its word:
@@ -50,7 +58,7 @@ The `api-url` attribute determines how Techle picks its word:
 #### Daily word mode
 
 ```html
-<tech-wordle api-url="https://your-api.example.com"></tech-wordle>
+<tech-wordle api-url="https://your-api.example.com" hint-enabled></tech-wordle>
 ```
 
 The `GET /daily-word` endpoint should return:

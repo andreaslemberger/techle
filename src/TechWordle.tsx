@@ -20,9 +20,10 @@ const MAX_GUESSES = 6;
 
 interface TechWordleProps {
   apiUrl?: string;
+  hintEnabled?: boolean;
 }
 
-export default function TechWordle({ apiUrl }: TechWordleProps) {
+export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
   const [solution, setSolution] = useState<string | null>(null);
   const [backendDescription, setBackendDescription] = useState<string | null>(null);
   const [guesses, setGuesses] = useState<Guess[]>([]);
@@ -186,6 +187,31 @@ export default function TechWordle({ apiUrl }: TechWordleProps) {
           maxGuesses={MAX_GUESSES}
         />
         <Keyboard letterStates={letterStates} onKey={handleKey} />
+        {!gameOver && hintEnabled && (
+          <button
+            onClick={() => {
+              const description = backendDescription ?? getWordDescription(solution);
+              if (description) {
+                showToast(description, 10000);
+              } else {
+                showToast("No hint available for this word.");
+              }
+            }}
+            style={{
+              marginTop: 16,
+              padding: "12px 24px",
+              fontSize: "1rem",
+              fontWeight: 700,
+              border: "none",
+              borderRadius: 4,
+              background: "var(--techle-present-color)",
+              color: "var(--techle-text-color)",
+              cursor: "pointer",
+            }}
+          >
+            Hint
+          </button>
+        )}
         {gameOver && !apiUrl && (
           <button
             onClick={resetGame}
