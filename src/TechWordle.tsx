@@ -168,9 +168,6 @@ export default function TechWordle({ apiUrl }: TechWordleProps) {
       <>
         <style>{styles}</style>
         <div className="game-container">
-          <div className="game-header">
-            <h1>Techle</h1>
-          </div>
           <p style={{ color: "var(--techle-text-color)", textAlign: "center" }}>Loading…</p>
         </div>
       </>
@@ -181,9 +178,6 @@ export default function TechWordle({ apiUrl }: TechWordleProps) {
     <>
       <style>{styles}</style>
       <div className="game-container">
-        <div className="game-header">
-          <h1>Techle</h1>
-        </div>
         <Toast message={toast} />
         <Board
           guesses={guesses}
