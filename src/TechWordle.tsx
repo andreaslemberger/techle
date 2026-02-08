@@ -186,7 +186,7 @@ export default function TechWordle({ apiUrl }: TechWordleProps) {
           maxGuesses={MAX_GUESSES}
         />
         <Keyboard letterStates={letterStates} onKey={handleKey} />
-        {gameOver && (
+        {gameOver && !apiUrl && (
           <button
             onClick={resetGame}
             style={{
