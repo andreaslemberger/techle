@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Toast from "./components/Toast";
+import HelpModal from "./components/HelpModal";
 import {
   pickRandomWord,
   isValidGuessAsync,
@@ -21,9 +22,10 @@ const MAX_GUESSES = 6;
 interface TechWordleProps {
   apiUrl?: string;
   hintEnabled?: boolean;
+  helpEnabled?: boolean;
 }
 
-export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
+export default function TechWordle({ apiUrl, hintEnabled, helpEnabled }: TechWordleProps) {
   const [solution, setSolution] = useState<string | null>(null);
   const [backendDescription, setBackendDescription] = useState<string | null>(null);
   const [guesses, setGuesses] = useState<Guess[]>([]);
@@ -33,6 +35,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
   const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(() => new Map());
   const [validating, setValidating] = useState(false);
   const [srAnnouncement, setSrAnnouncement] = useState("");
+  const [showHelp, setShowHelp] = useState(false);
 
   const wordLength = solution?.length ?? 5;
 
@@ -272,6 +275,17 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
             Play Again
           </button>
         )}
+        {helpEnabled && (
+          <button
+            className="help-button"
+            part="help-button"
+            aria-label="How to play"
+            onClick={() => setShowHelp(true)}
+          >
+            ?
+          </button>
+        )}
+        {helpEnabled && showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
       </div>
     </>
   );

@@ -45,6 +45,7 @@ The component uses Shadow DOM, so its styles are encapsulated and won't conflict
 |---|---|---|
 | `api-url` | `string` | Backend URL for daily word mode. Omit for random word mode. |
 | `hint-enabled` | `boolean` | When present, shows a **Hint** button that displays the word's description. |
+| `help-enabled` | `boolean` | When present, shows a **?** button that opens a "How to play" modal with game rules. |
 
 ### Game Modes
 
@@ -154,6 +155,8 @@ Techle exposes shadow DOM elements via the `part` attribute, allowing fine-grain
 | `key` | `<button>` | An individual keyboard key |
 | `toast` | `<div>` | The toast notification message |
 | `hint-button` | `<button>` | The hint button (when `hint-enabled` is set) |
+| `help-button` | `<button>` | The help button (when `help-enabled` is set) |
+| `help-modal` | `<div>` | The "How to play" modal panel (when `help-enabled` is set) |
 | `play-again-button` | `<button>` | The play again button (random word mode, after game over) |
 
 #### Example: Styling via CSS Parts
@@ -175,7 +178,8 @@ tech-wordle::part(toast) {
 }
 
 tech-wordle::part(hint-button),
-tech-wordle::part(play-again-button) {
+tech-wordle::part(play-again-button),
+tech-wordle::part(help-button) {
   border-radius: 8px;
   text-transform: uppercase;
 }

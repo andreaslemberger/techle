@@ -3,7 +3,7 @@ import TechWordle from "./TechWordle";
 
 const WebTechWordle = r2wc(TechWordle, {
   shadow: "open",
-  props: { apiUrl: "string", hintEnabled: "boolean" },
+  props: { apiUrl: "string", hintEnabled: "boolean", helpEnabled: "boolean" },
 });
 
 customElements.define("tech-wordle", WebTechWordle);

@@ -255,6 +255,117 @@
   outline-offset: 2px;
 }
 
+/* Help button */
+.help-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--techle-tile-border);
+  background: transparent;
+  color: var(--techle-text-color);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-top: 16px;
+  line-height: 1;
+}
+
+[part="help-button"]:focus-visible,
+.help-close:focus-visible {
+  outline: 2px solid var(--techle-text-color);
+  outline-offset: 2px;
+}
+
+/* Help modal overlay */
+.help-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.help-modal {
+  background: var(--techle-bg-color);
+  color: var(--techle-text-color);
+  border: 1px solid var(--techle-tile-border);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: calc(100% - 32px);
+  position: relative;
+}
+
+.help-modal h2 {
+  margin: 0 0 16px;
+  font-size: 1.3rem;
+}
+
+.help-modal p {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.help-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--techle-text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+/* Example tiles in help modal */
+.help-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.help-example {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.help-tile {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: var(--techle-tile-radius);
+  color: var(--techle-guess-color);
+  flex-shrink: 0;
+}
+
+.help-tile.correct {
+  background-color: var(--techle-correct-color);
+}
+
+.help-tile.present {
+  background-color: var(--techle-present-color);
+}
+
+.help-tile.absent {
+  background-color: var(--techle-absent-color);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tile.filled,
   .tile.reveal,
