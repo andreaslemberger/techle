@@ -4,7 +4,7 @@ import Keyboard from "./components/Keyboard";
 import Toast from "./components/Toast";
 import {
   pickRandomWord,
-  isValidGuess,
+  isValidGuessAsync,
   evaluateGuess,
   getWordDescription,
   LetterState,
@@ -31,6 +31,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
   const [gameOver, setGameOver] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(() => new Map());
+  const [validating, setValidating] = useState(false);
 
   const wordLength = solution?.length ?? 5;
 
@@ -63,15 +64,24 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
     setTimeout(() => setToast(null), duration);
   }, []);
 
-  const submitGuess = useCallback(() => {
-    if (!solution) return;
+  const submitGuess = useCallback(async () => {
+    if (!solution || validating) return;
 
     if (currentGuess.length !== wordLength) {
       showToast("Not enough letters");
       return;
     }
 
-    if (!isValidGuess(currentGuess)) {
+    setValidating(true);
+    let valid: boolean;
+    try {
+      valid = await isValidGuessAsync(currentGuess);
+    } finally {
+      setValidating(false);
+      setToast(null);
+    }
+
+    if (!valid) {
       showToast("Not a valid word");
       return;
     }
@@ -115,11 +125,19 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
         10000,
       );
     }
-  }, [currentGuess, wordLength, solution, guesses.length, showToast, backendDescription]);
+  }, [
+    currentGuess,
+    wordLength,
+    solution,
+    guesses.length,
+    showToast,
+    backendDescription,
+    validating,
+  ]);
 
   const handleKey = useCallback(
     (key: string) => {
-      if (gameOver) return;
+      if (gameOver || validating) return;
 
       if (key === "Enter") {
         submitGuess();
@@ -135,7 +153,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
         setCurrentGuess((prev) => prev + key);
       }
     },
-    [gameOver, currentGuess.length, wordLength, submitGuess],
+    [gameOver, validating, currentGuess.length, wordLength, submitGuess],
   );
 
   useEffect(() => {

@@ -1,10 +1,11 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import {
   TECH_WORDS,
   TECH_WORD_LIST,
   TECH_WORD_DESCRIPTIONS,
   pickRandomWord,
   isValidGuess,
+  isValidGuessAsync,
   evaluateGuess,
   getWordDescription,
 } from "../words";
@@ -157,5 +158,43 @@ describe("evaluateGuess", () => {
 
     const result7 = evaluateGuess("angular", "webpack");
     expect(result7).toHaveLength(7);
+  });
+});
+
+describe("isValidGuessAsync", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("returns true immediately for words in local set", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch");
+    const result = await isValidGuessAsync("react");
+    expect(result).toBe(true);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it("returns true when API responds 200 for unknown word", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(new Response("[]", { status: 200 }));
+    const result = await isValidGuessAsync("qwrtz");
+    expect(result).toBe(true);
+  });
+
+  it("returns false when API responds 404 for invalid word", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(new Response("Not found", { status: 404 }));
+    const result = await isValidGuessAsync("zzzzz");
+    expect(result).toBe(false);
+  });
+
+  it("returns false on network error", async () => {
+    vi.spyOn(globalThis, "fetch").mockRejectedValueOnce(new Error("Network error"));
+    const result = await isValidGuessAsync("xyzwq");
+    expect(result).toBe(false);
+  });
+
+  it("rejects words outside 3-7 letter range without API call", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch");
+    expect(await isValidGuessAsync("ab")).toBe(false);
+    expect(await isValidGuessAsync("abcdefgh")).toBe(false);
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
