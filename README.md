@@ -91,13 +91,18 @@ Techle exposes CSS custom properties on the `:host` element. Override them on th
 
 ```css
 tech-wordle {
-  --techle-correct-color: #6aaa64;  /* green tile */
-  --techle-present-color: #c9b458;  /* yellow tile */
-  --techle-absent-color: #787c7e;   /* gray tile */
+  --techle-correct-color: #6aaa64;           /* green tile */
+  --techle-present-color: #c9b458;           /* yellow tile */
+  --techle-absent-color: #787c7e;            /* gray tile */
   --techle-tile-size: 62px;
   --techle-font-size: 2rem;
-  --techle-bg-color: #121213;       /* game background */
-  --techle-text-color: #ffffff;     /* text and tile text */
+  --techle-bg-color: #121213;                /* game background */
+  --techle-text-color: #ffffff;              /* text and tile text */
+  --techle-guess-color: var(--techle-text-color);           /* submitted/revealed tile text */
+  --techle-unsubmitted-guess-color: var(--techle-text-color); /* current guess tile text */
+  --techle-toast-bg: var(--techle-text-color);              /* toast notification background */
+  --techle-toast-color: var(--techle-bg-color);             /* toast notification text */
+  --techle-tile-radius: 0px;                 /* tile border radius */
 }
 ```
 
@@ -120,3 +125,16 @@ tech-wordle {
   --techle-tile-size: 48px;
   --techle-font-size: 1.5rem;
 }
+```
+
+### Example: Rounded Tiles with Custom Toast
+
+```css
+tech-wordle {
+  --techle-tile-radius: 8px;
+  --techle-toast-bg: #333;
+  --techle-toast-color: #fff;
+  --techle-guess-color: #e0e0e0;
+  --techle-unsubmitted-guess-color: #aaaaaa;
+}
+```

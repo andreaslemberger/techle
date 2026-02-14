@@ -9,6 +9,11 @@
   --techle-tile-border: #3a3a3c;
   --techle-tile-active-border: #565758;
   --techle-key-bg: #818384;
+  --techle-guess-color: var(--techle-text-color);
+  --techle-unsubmitted-guess-color: var(--techle-text-color);
+  --techle-toast-bg: var(--techle-text-color);
+  --techle-toast-color: var(--techle-bg-color);
+  --techle-tile-radius: 0px;
 
   display: block;
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -68,6 +73,8 @@
   font-weight: 700;
   text-transform: uppercase;
   border: 2px solid var(--techle-tile-border);
+  border-radius: var(--techle-tile-radius);
+  color: var(--techle-unsubmitted-guess-color);
   box-sizing: border-box;
   transition: transform 0.1s ease;
 }
@@ -80,19 +87,19 @@
 .tile.correct {
   background-color: var(--techle-correct-color);
   border-color: var(--techle-correct-color);
-  color: var(--techle-text-color);
+  color: var(--techle-guess-color);
 }
 
 .tile.present {
   background-color: var(--techle-present-color);
   border-color: var(--techle-present-color);
-  color: var(--techle-text-color);
+  color: var(--techle-guess-color);
 }
 
 .tile.absent {
   background-color: var(--techle-absent-color);
   border-color: var(--techle-absent-color);
-  color: var(--techle-text-color);
+  color: var(--techle-guess-color);
 }
 
 .tile.reveal {
@@ -191,8 +198,8 @@
 }
 
 .toast {
-  background: var(--techle-text-color);
-  color: var(--techle-bg-color);
+  background: var(--techle-toast-bg);
+  color: var(--techle-toast-color);
   padding: 12px 24px;
   border-radius: 4px;
   font-size: 0.9rem;
