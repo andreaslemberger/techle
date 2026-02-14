@@ -6,9 +6,18 @@ interface RowProps {
   wordLength: number;
   states: LetterState[];
   isRevealed: boolean;
+  rowIndex: number;
+  isCurrent: boolean;
 }
 
-export default function Row({ guess, wordLength, states, isRevealed }: RowProps) {
+export default function Row({
+  guess,
+  wordLength,
+  states,
+  isRevealed,
+  rowIndex,
+  isCurrent,
+}: RowProps) {
   const tiles = [];
   for (let i = 0; i < wordLength; i++) {
     tiles.push(
@@ -23,7 +32,12 @@ export default function Row({ guess, wordLength, states, isRevealed }: RowProps)
   }
 
   return (
-    <div className="row" part="row">
+    <div
+      className="row"
+      part="row"
+      role="group"
+      aria-label={isCurrent ? `Row ${rowIndex + 1}, current` : `Row ${rowIndex + 1}`}
+    >
       {tiles}
     </div>
   );

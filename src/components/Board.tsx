@@ -25,19 +25,39 @@ export default function Board({ guesses, currentGuess, wordLength, maxGuesses }:
           wordLength={wordLength}
           states={guesses[i].states}
           isRevealed={true}
+          rowIndex={i}
+          isCurrent={false}
         />,
       );
     } else if (i === guesses.length) {
       rows.push(
-        <Row key={i} guess={currentGuess} wordLength={wordLength} states={[]} isRevealed={false} />,
+        <Row
+          key={i}
+          guess={currentGuess}
+          wordLength={wordLength}
+          states={[]}
+          isRevealed={false}
+          rowIndex={i}
+          isCurrent={true}
+        />,
       );
     } else {
-      rows.push(<Row key={i} guess="" wordLength={wordLength} states={[]} isRevealed={false} />);
+      rows.push(
+        <Row
+          key={i}
+          guess=""
+          wordLength={wordLength}
+          states={[]}
+          isRevealed={false}
+          rowIndex={i}
+          isCurrent={false}
+        />,
+      );
     }
   }
 
   return (
-    <div className="board" part="board">
+    <div className="board" part="board" role="group" aria-label="Game board">
       {rows}
     </div>
   );

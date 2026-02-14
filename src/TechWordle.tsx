@@ -32,6 +32,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
   const [toast, setToast] = useState<string | null>(null);
   const [letterStates, setLetterStates] = useState<Map<string, LetterState>>(() => new Map());
   const [validating, setValidating] = useState(false);
+  const [srAnnouncement, setSrAnnouncement] = useState("");
 
   const wordLength = solution?.length ?? 5;
 
@@ -115,16 +116,33 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
     const description = backendDescription ?? getWordDescription(solution);
     const descriptionSuffix = description ? ` — ${description}` : "";
 
+    // Build screen reader announcement
+    const stateLabels: Record<string, string> = {
+      correct: "correct",
+      present: "present in word",
+      absent: "not in word",
+    };
+    const rowNum = guesses.length + 1;
+    const tileAnnouncements = currentGuess
+      .split("")
+      .map((ch, i) => `${ch.toUpperCase()}, ${stateLabels[states[i]]}`)
+      .join(". ");
+    let announcement = `Row ${rowNum}: ${tileAnnouncements}.`;
+
     if (currentGuess === solution) {
       setGameOver(true);
       showToast(`Congratulations!${descriptionSuffix}`, 10000);
+      announcement += " Congratulations, you guessed the word!";
     } else if (guesses.length + 1 >= MAX_GUESSES) {
       setGameOver(true);
       showToast(
         `Better luck next time! The word was ${solution.toUpperCase()}.${descriptionSuffix}`,
         10000,
       );
+      announcement += ` Game over. The word was ${solution.toUpperCase()}.`;
     }
+
+    setSrAnnouncement(announcement);
   }, [
     currentGuess,
     wordLength,
@@ -180,6 +198,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
     setGameOver(false);
     setToast(null);
     setLetterStates(new Map());
+    setSrAnnouncement("");
   }, [fetchDailyWord]);
 
   if (!solution) {
@@ -198,6 +217,9 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
       <style>{styles}</style>
       <div className="game-container">
         <Toast message={toast} />
+        <div className="sr-only" aria-live="assertive" aria-atomic="true" role="log">
+          {srAnnouncement}
+        </div>
         <Board
           guesses={guesses}
           currentGuess={currentGuess}

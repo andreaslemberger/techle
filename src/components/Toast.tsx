@@ -3,13 +3,13 @@ interface ToastProps {
 }
 
 export default function Toast({ message }: ToastProps) {
-  if (!message) return null;
-
   return (
-    <div className="toast-container">
-      <div className="toast" part="toast">
-        {message}
-      </div>
+    <div className="toast-container" role="status" aria-live="polite" aria-atomic="true">
+      {message && (
+        <div className="toast" part="toast">
+          {message}
+        </div>
+      )}
     </div>
   );
 }

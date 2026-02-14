@@ -230,3 +230,35 @@
     opacity: 0;
   }
 }
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.key:focus-visible {
+  outline: 2px solid var(--techle-text-color);
+  outline-offset: 2px;
+}
+
+[part="hint-button"]:focus-visible,
+[part="play-again-button"]:focus-visible {
+  outline: 2px solid var(--techle-text-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile.filled,
+  .tile.reveal,
+  .toast {
+    animation: none;
+  }
+}

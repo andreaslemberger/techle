@@ -8,9 +8,9 @@ describe("Toast", () => {
     expect(screen.getByText("Test message")).toBeInTheDocument();
   });
 
-  it("renders nothing when message is null", () => {
+  it("renders no toast element when message is null", () => {
     const { container } = render(<Toast message={null} />);
-    expect(container.innerHTML).toBe("");
+    expect(container.querySelector(".toast")).toBeNull();
   });
 
   it("has toast class", () => {
