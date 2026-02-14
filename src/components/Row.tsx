@@ -22,5 +22,9 @@ export default function Row({ guess, wordLength, states, isRevealed }: RowProps)
     );
   }
 
-  return <div className="row">{tiles}</div>;
+  return (
+    <div className="row" part="row">
+      {tiles}
+    </div>
+  );
 }

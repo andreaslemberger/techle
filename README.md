@@ -87,6 +87,8 @@ Opens a local dev server with a test harness at `http://localhost:5173`.
 
 ## Customization
 
+### CSS Custom Properties
+
 Techle exposes CSS custom properties on the `:host` element. Override them on the `tech-wordle` selector or any ancestor:
 
 ```css
@@ -136,5 +138,45 @@ tech-wordle {
   --techle-toast-color: #fff;
   --techle-guess-color: #e0e0e0;
   --techle-unsubmitted-guess-color: #aaaaaa;
+}
+```
+
+### CSS Parts
+
+Techle exposes shadow DOM elements via the `part` attribute, allowing fine-grained styling with the `::part()` selector:
+
+| Part | Element | Description |
+|---|---|---|
+| `board` | `<div>` | The grid container holding all guess rows |
+| `row` | `<div>` | A single row of tiles (one per guess) |
+| `tile` | `<div>` | An individual letter tile |
+| `keyboard` | `<div>` | The on-screen keyboard container |
+| `key` | `<button>` | An individual keyboard key |
+| `toast` | `<div>` | The toast notification message |
+| `hint-button` | `<button>` | The hint button (when `hint-enabled` is set) |
+| `play-again-button` | `<button>` | The play again button (random word mode, after game over) |
+
+#### Example: Styling via CSS Parts
+
+```css
+tech-wordle::part(tile) {
+  border-radius: 8px;
+  font-family: "Courier New", monospace;
+}
+
+tech-wordle::part(key) {
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+tech-wordle::part(toast) {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+tech-wordle::part(hint-button),
+tech-wordle::part(play-again-button) {
+  border-radius: 8px;
+  text-transform: uppercase;
 }
 ```

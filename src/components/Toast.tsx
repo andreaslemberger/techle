@@ -7,7 +7,9 @@ export default function Toast({ message }: ToastProps) {
 
   return (
     <div className="toast-container">
-      <div className="toast">{message}</div>
+      <div className="toast" part="toast">
+        {message}
+      </div>
     </div>
   );
 }

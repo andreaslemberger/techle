@@ -36,5 +36,9 @@ export default function Board({ guesses, currentGuess, wordLength, maxGuesses }:
     }
   }
 
-  return <div className="board">{rows}</div>;
+  return (
+    <div className="board" part="board">
+      {rows}
+    </div>
+  );
 }

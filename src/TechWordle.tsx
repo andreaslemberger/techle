@@ -207,6 +207,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
         <Keyboard letterStates={letterStates} onKey={handleKey} />
         {!gameOver && hintEnabled && (
           <button
+            part="hint-button"
             onClick={() => {
               const description = backendDescription ?? getWordDescription(solution);
               if (description) {
@@ -232,6 +233,7 @@ export default function TechWordle({ apiUrl, hintEnabled }: TechWordleProps) {
         )}
         {gameOver && !apiUrl && (
           <button
+            part="play-again-button"
             onClick={resetGame}
             style={{
               marginTop: 16,

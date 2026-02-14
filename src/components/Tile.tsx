@@ -18,7 +18,11 @@ export default function Tile({ letter, state, reveal, delay }: TileProps) {
     .join(" ");
 
   return (
-    <div className={className} style={reveal ? { animationDelay: `${delay}ms` } : undefined}>
+    <div
+      className={className}
+      part="tile"
+      style={reveal ? { animationDelay: `${delay}ms` } : undefined}
+    >
       {letter}
     </div>
   );

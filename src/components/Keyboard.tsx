@@ -13,7 +13,7 @@ interface KeyboardProps {
 
 export default function Keyboard({ letterStates, onKey }: KeyboardProps) {
   return (
-    <div className="keyboard">
+    <div className="keyboard" part="keyboard">
       {ROWS.map((row, i) => (
         <div key={i} className="keyboard-row">
           {row.map((key) => {
@@ -24,6 +24,7 @@ export default function Keyboard({ letterStates, onKey }: KeyboardProps) {
               <button
                 key={key}
                 className={`key ${state} ${isWide ? "wide" : ""}`}
+                part="key"
                 onClick={() => onKey(key)}
               >
                 {display}
