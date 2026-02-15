@@ -70,6 +70,14 @@ The `GET /daily-word` endpoint should return:
 
 If the request fails, the component falls back to random word mode and shows a toast notification.
 
+##### techle-backend
+
+The [techle-backend](https://github.com/andreaslemberger/techle-backend) repository provides a ready-to-deploy backend that implements the `GET /daily-word` endpoint. It rotates a new tech word every 24 hours at midnight Berlin time (CET/CEST) and ensures all players see the same word on the same day.
+
+The backend ships with a curated list oft tech words and uses a zero-database architecture — words are bundled with the function code. The core logic is cloud-agnostic; currently an AWS adapter (API Gateway + Lambda) is available, and adding adapters for other cloud providers is straightforward.
+
+See the techle-backend documentation for setup, deployment, and configuration instructions.
+
 #### Random word mode
 
 ```html
